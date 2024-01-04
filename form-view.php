@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" type="text/css"
           rel="stylesheet"/>
-    <title>Your fancy store</title>
+    <title>BeCodeServices</title>
 </head>
 <body>
 <div class="container">
@@ -73,8 +73,13 @@
 
         <button type="submit" class="btn btn-primary">Order!</button>
     </form>
-
-    <footer>You already ordered <strong>&euro; <?php echo $totalValue ?></strong> in food and drinks.</footer>
+    <?php
+// Display order details only if the form has been submitted
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    handleForm();
+}
+?>
+    <footer>You already ordered <strong>&euro; <?php echo $totalValue ?></strong> in BeCode Services.</footer>
 </div>
 
 <style>

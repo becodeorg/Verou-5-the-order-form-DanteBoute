@@ -23,11 +23,19 @@ function whatIsHappening() {
 
 // TODO: provide some products (you may overwrite the example)
 $products = [
-    ['name' => 'Slice of cheesecake', 'price' => 5.5],
-    ['name' => 'Slice of carrotcake', 'price' => 5.5],
-    ['name' => 'Slice of chocolatecake', 'price' => 6.5],
-    ['name' => 'Slice of blueberrycake', 'price' => 6],
-    ['name' => 'Chocolate muffin', 'price' => 4.5]
+    ['name' => '1h of extra PHP lessons by Jonasi', 'price' => 65],
+    ['name' => '1h of extra JS lessons by Jonasi', 'price' => 55],
+    ['name' => '1 (unnoticed) day of absence at home', 'price' => 45],
+    ['name' => '1 (unnoticed) day of absence on campus', 'price' => 85],
+    ['name' => 'Sandwich Delivery', 'price' => 2.5],
+    ['name' => 'Afternoon Snack', 'price' => 3.5],
+    ['name' => 'Homemade B-Day cake', 'price' => 25],
+    ['name' => '15 min head massage by Anaïs', 'price' => 20],
+    ['name' => '10 min Motorcycle ride with Luis', 'price' => 30],
+    ['name' => 'TechTalkTake-over', 'price' => 100],
+    ['name' => 'Start fire alarm during TechTalk', 'price' => 30],
+    ['name' => 'TechTalk feedback from Thibault', 'price' => 5],
+    ['name' => '30 minute nap on campus', 'price' => 15]
 ];
 
 $totalValue = 0;
@@ -59,24 +67,35 @@ function validate()
 
 function handleForm()
 {
-    if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $invalidFields = validate();
-        if (!empty($invalidFields)) {
-        echo '<div class="alert alert-danger">';
-        echo '<p>Please correct the following errors:</p>';
-        echo '<ul>';
-        foreach ($invalidFields as $error) {
-            echo "<li>$error</li>";
+    global $products, $totalValue;
+        $invalidFields = validate();
+        if (empty($invalidFields)) {
+            $selectedProducts = $_POST['products'] ?? [];
+
+            echo "<h2>Your Order:</h2>";
+            echo "<ul>";
+
+            foreach ($selectedProducts as $key => $value) {
+                echo "<li>" . $products[$key]['name'] . " - &euro;" . number_format($products[$key]['price'], 2) . "</li>";
+                $totalValue += $products[$key]['price'];
+            }
+        } else {
+            echo '<div class="alert alert-danger">';
+            echo '<p>Please correct the following errors:</p>';
+            echo '<ul>';
+            foreach ($invalidFields as $error) {
+                echo "<li>$error</li>";
+            }
+            echo '</ul>';
+            echo '</div>';
         }
-        echo '</ul>';
-        echo '</div>';
-        }
-    } 
-}
+    }
 
 // TODO: replace this if by an actual check for the form to be submitted
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['street'], $_POST['streetnumber'], $_POST['city'], $_POST['zipcode'], $_POST['email'])) {
-    handleForm();
+    // Call handleForm only if the form is submitted
+    require 'form-view.php';
+} else {
+    // If the form is not submitted, display the form
+    require 'form-view.php';
 }
-
-require 'form-view.php';
