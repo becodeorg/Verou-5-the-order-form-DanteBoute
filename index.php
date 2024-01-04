@@ -6,6 +6,11 @@
 // This line makes PHP behave in a more strict way
 declare(strict_types=1);
 
+
+header("Cache-Control: no-cache, no-store, must-revalidate");
+header("Pragma: no-cache");
+header("Expires: 0");
+
 // We are going to use session variables so we need to enable sessions
 session_start();
 
@@ -71,7 +76,7 @@ function handleForm()
         $invalidFields = validate();
         if (empty($invalidFields)) {
             $selectedProducts = $_POST['products'] ?? [];
-
+            echo "<h2>Order Confirmed!</h2>";
             echo "<h2>Your Order:</h2>";
             echo "<ul>";
 
@@ -95,6 +100,13 @@ function handleForm()
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['street'], $_POST['streetnumber'], $_POST['city'], $_POST['zipcode'], $_POST['email'])) {
     // Call handleForm only if the form is submitted
     require 'form-view.php';
+
+    // Clear POST data to prevent duplicate submissions on page reload
+    unset($_POST);
+
+    // Redirect to a different URL to prevent form resubmission on page refresh
+    header("Location: {$_SERVER['REQUEST_URI']}");
+    exit();
 } else {
     // If the form is not submitted, display the form
     require 'form-view.php';

@@ -1,4 +1,6 @@
-<?php // This file is mostly containing things for your view / html ?>
+<?php header("Cache-Control: no-cache, no-store, must-revalidate");
+header("Pragma: no-cache");
+header("Expires: 0"); ?>
 
 <!doctype html>
 <html lang="en">
