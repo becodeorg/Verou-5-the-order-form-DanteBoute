@@ -25,11 +25,11 @@ function whatIsHappening() {
 
 // TODO: provide some products (you may overwrite the example)
 $products = [
-    ['Cheesecake' => 'Slice of cheesecake', 'price' => 5.5],
-    ['Carrotcake' => 'Slice of carrotcake', 'price' => 5.5],
-    ['Chocolatecake' => 'Slice of chocolatecake', 'price' => 6.5],
-    ['Blueberrycake' => 'Slice of blueberrycake', 'price' => 6],
-    ['Chocolate muffin' => 'Chocolate muffin', 'price' => 4.5]
+    ['name' => 'Slice of cheesecake', 'price' => 5.5],
+    ['name' => 'Slice of carrotcake', 'price' => 5.5],
+    ['name' => 'Slice of chocolatecake', 'price' => 6.5],
+    ['name' => 'Slice of blueberrycake', 'price' => 6],
+    ['name' => 'Chocolate muffin', 'price' => 4.5]
 ];
 
 $totalValue = 0;
@@ -37,7 +37,7 @@ $totalValue = 0;
 function validate()
 {
     // TODO: This function will send a list of invalid fields back
-    if($_SERVER["REQUEST_METHOD"] === "POST") {
+    if ($_SERVER["REQUEST_METHOD"] === "POST") {
            
         // GRAB DATA FROM INPUTS
         $street = htmlspecialchars($_POST["street"]);
@@ -45,14 +45,17 @@ function validate()
         $city = htmlspecialchars($_POST["city"]);
         $zipcode = htmlspecialchars($_POST["zipcode"]);
 
-        $errors = false;
+        $invalidFields = [];
 
         if (empty($street) || empty($streetnumber) || empty($city) || empty($zipcode)) {
-            echo "<p class='error'>Please fill in all fields</p>";
-            $errors = true;
+            $invalidFields[] = "Please fill in all fields";
         }
-    return [$invalidFields];
+        if (!is_numeric($streetnumber) || !is_numeric($zipcode)) {
+            $invalidFields[] = "Only numbers allowed as streetnumber and zip-code!";
+        }
+        return $invalidFields;
     }
+    return [];
 }
 
 function handleForm()
@@ -69,9 +72,23 @@ function handleForm()
 }
 
 // TODO: replace this if by an actual check for the form to be submitted
-$formSubmitted = false;
-if ($formSubmitted) {
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
     handleForm();
 }
 
 require 'form-view.php';
+
+// Perform validation
+$invalidFields = validate(); // Ensure the 'validate()' function is included in your-validation-file.php
+
+// Display errors if they exist
+if (!empty($invalidFields)) {
+    echo '<div class="alert alert-danger">'; // Display errors in a Bootstrap alert
+    echo '<p>Please correct the following errors:</p>';
+    echo '<ul>';
+    foreach ($invalidFields as $error) {
+        echo "<li>$error</li>";
+    }
+    echo '</ul>';
+    echo '</div>';
+}
