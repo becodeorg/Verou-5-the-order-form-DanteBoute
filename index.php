@@ -23,7 +23,11 @@ function whatIsHappening() {
 
 // TODO: provide some products (you may overwrite the example)
 $products = [
-    ['name' => 'Your favourite drink', 'price' => 2.5],
+    ['Cheesecake' => 'Slice of cheesecake', 'price' => 5.5],
+    ['Carrotcake' => 'Slice of carrotcake', 'price' => 5.5],
+    ['Chocolatecake' => 'Slice of chocolatecake', 'price' => 6.5],
+    ['Blueberrycake' => 'Slice of blueberrycake', 'price' => 6],
+    ['Chocolate muffin' => 'Chocolate muffin', 'price' => 4.5],
 ];
 
 $totalValue = 0;
