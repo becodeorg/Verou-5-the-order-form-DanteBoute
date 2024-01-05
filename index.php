@@ -19,7 +19,6 @@ function whatIsHappening() {
     echo '<h2>$_SESSION</h2>';
     var_dump($_SESSION);
 }
-
 // TODO: provide some products (you may overwrite the example)
 $products = [
     ['name' => 'Hot coffee', 'price' => 1.5],
@@ -70,10 +69,13 @@ function validate()
 
 function handleForm()
 {
-    global $products, $totalValue;
-        $invalidFields = validate();
-        if (empty($invalidFields)) {
-            $selectedProducts = $_POST['products'] ?? [];
+    global $products, $services, $totalValue;
+    $invalidFields = validate();
+    if (empty($invalidFields)) {
+
+
+        if (isset($_POST['products'])) {
+            $selectedProducts = $_POST['products'];
             echo "<h2>Order Confirmed!</h2>";
             echo "<h2>Your Order:</h2>";
             echo "<ul>";
@@ -82,17 +84,36 @@ function handleForm()
                 echo "<li>" . $products[$key]['name'] . " - &euro;" . number_format($products[$key]['price'], 2) . "</li>";
                 $totalValue += $products[$key]['price'];
             }
-        } else {
-            echo '<div class="alert alert-danger">';
-            echo '<p>Please correct the following errors:</p>';
-            echo '<ul>';
-            foreach ($invalidFields as $error) {
-                echo "<li>$error</li>";
-            }
-            echo '</ul>';
-            echo '</div>';
+            echo "</ul>";
         }
+
+        
+        elseif (isset($_POST['services'])) {
+            $selectedServices = $_POST['services'];
+            echo "<h2>Order Confirmed!</h2>";
+            echo "<h2>Your Order:</h2>";
+            echo "<ul>";
+
+            foreach ($selectedServices as $key => $value) {
+                echo "<li>" . $services[$key]['name'] . " - &euro;" . number_format($services[$key]['price'], 2) . "</li>";
+                $totalValue += $services[$key]['price'];
+            }
+            echo "</ul>";
+        }
+
+        echo "<p><strong>Total: &euro;" . number_format($totalValue, 2) . "</strong></p>";
+
+    } else {
+        echo '<div class="alert alert-danger">';
+        echo '<p>Please correct the following errors:</p>';
+        echo '<ul>';
+        foreach ($invalidFields as $error) {
+            echo "<li>$error</li>";
+        }
+        echo '</ul>';
+        echo '</div>';
     }
+}
 // AUTOFILLING STREET AND NUMBER
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['street']) && isset($_POST['streetnumber'])) {
     $_SESSION['userStreet'] = $_POST['street'];

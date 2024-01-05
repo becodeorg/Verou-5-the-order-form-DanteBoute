@@ -61,17 +61,20 @@
             </div>
         </fieldset>
 
+
     <?php if (isset($_GET['order']) && $_GET['order'] === 'products'): ?>
     <!-- Show product-related fields -->
     <fieldset>
         <legend>Products</legend>
         <?php foreach ($products as $i => $product): ?>
-            <label>
-                <input type="checkbox" value="1" name="products[<?php echo $i ?>]"/> <?php echo $product['name'] ?> -
-                &euro; <?= number_format($product['price'], 2) ?></label><br />
-        <?php endforeach; ?>
+        <label>
+            <input type="checkbox" value="1" name="products[<?php echo $i ?>]"/> <?php echo $product['name'] ?> -
+            &euro; <?= number_format($product['price'], 2) ?></label><br />
+    <?php endforeach; ?>
     </fieldset>
-<?php elseif (isset($_GET['order']) && $_GET['order'] === 'services'): ?>
+        
+
+    <?php elseif (isset($_GET['order']) && $_GET['order'] === 'services'): ?>
     <!-- Show service-related fields -->
     <fieldset>
         <legend>Services</legend>
@@ -81,7 +84,7 @@
                 &euro; <?= number_format($service['price'], 2) ?></label><br />
         <?php endforeach; ?>
     </fieldset>
-<?php endif; ?>
+    <?php endif; ?>
 
     <button type="submit" class="btn btn-primary">Order!</button>
 </form>
