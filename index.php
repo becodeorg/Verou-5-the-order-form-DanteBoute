@@ -90,13 +90,15 @@ function handleForm()
         }
     }
 // AUTOFILLING STREET AND NUMBER
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['street']) && isset($_POST['streetname'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['street']) && isset($_POST['streetnumber'])) {
     $_SESSION['userStreet'] = $_POST['street'];
     $_SESSION['userStreetNumber'] = $_POST['streetnumber'];
-
 }
+
+// Retrieve session variables for autofilling
 $userStreet = isset($_SESSION['userStreet']) ? $_SESSION['userStreet'] : '';
 $userStreetNumber = isset($_SESSION['userStreetNumber']) ? $_SESSION['userStreetNumber'] : '';
+
 
 // TODO: replace this if by an actual check for the form to be submitted
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['street'], $_POST['streetnumber'], $_POST['city'], $_POST['zipcode'], $_POST['email'])) {
