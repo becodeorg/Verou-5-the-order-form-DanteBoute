@@ -5,12 +5,6 @@
 
 // This line makes PHP behave in a more strict way
 declare(strict_types=1);
-
-
-header("Cache-Control: no-cache, no-store, must-revalidate");
-header("Pragma: no-cache");
-header("Expires: 0");
-
 // We are going to use session variables so we need to enable sessions
 session_start();
 
@@ -95,6 +89,14 @@ function handleForm()
             echo '</div>';
         }
     }
+// AUTOFILLING STREET AND NUMBER
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['street']) && isset($_POST['streetname'])) {
+    $_SESSION['userStreet'] = $_POST['street'];
+    $_SESSION['userStreetNumber'] = $_POST['streetnumber'];
+
+}
+$userStreet = isset($_SESSION['userStreet']) ? $_SESSION['userStreet'] : '';
+$userStreetNumber = isset($_SESSION['userStreetNumber']) ? $_SESSION['userStreetNumber'] : '';
 
 // TODO: replace this if by an actual check for the form to be submitted
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['street'], $_POST['streetnumber'], $_POST['city'], $_POST['zipcode'], $_POST['email'])) {

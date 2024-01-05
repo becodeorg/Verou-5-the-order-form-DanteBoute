@@ -1,6 +1,5 @@
-<?php header("Cache-Control: no-cache, no-store, must-revalidate");
-header("Pragma: no-cache");
-header("Expires: 0"); ?>
+<?php
+?>
 
 <!doctype html>
 <html lang="en">
@@ -44,11 +43,11 @@ header("Expires: 0"); ?>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="street">Street:</label>
-                    <input type="text" name="street" id="street" class="form-control">
+                    <input type="text" name="street" id="street" class="form-control" value="<?php echo $userStreet; ?>">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="streetnumber">Street number:</label>
-                    <input type="text" id="streetnumber" name="streetnumber" class="form-control">
+                    <input type="text" id="streetnumber" name="streetnumber" class="form-control" value="<?php echo $userStreetNumber; ?>">
                 </div>
             </div>
             <div class="form-row">
