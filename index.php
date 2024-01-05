@@ -22,19 +22,23 @@ function whatIsHappening() {
 
 // TODO: provide some products (you may overwrite the example)
 $products = [
+    ['name' => 'Hot coffee', 'price' => 1.5],
+    ['name' => 'Forged Doctor Note', 'price' => 45],
+    ['name' => 'Afternoon Snack', 'price' => 3.5],
+    ['name' => 'Homemade B-Day cake', 'price' => 25]
+];
+$services = [
     ['name' => '1h of extra PHP lessons by Jonasi', 'price' => 65],
     ['name' => '1h of extra JS lessons by Jonasi', 'price' => 55],
     ['name' => '1 (unnoticed) day of absence at home', 'price' => 45],
     ['name' => '1 (unnoticed) day of absence on campus', 'price' => 85],
-    ['name' => 'Sandwich Delivery', 'price' => 2.5],
-    ['name' => 'Afternoon Snack', 'price' => 3.5],
-    ['name' => 'Homemade B-Day cake', 'price' => 25],
     ['name' => '15 min head massage by Anaïs', 'price' => 20],
     ['name' => '10 min Motorcycle ride with Luis', 'price' => 30],
     ['name' => 'TechTalkTake-over', 'price' => 100],
     ['name' => 'Start fire alarm during TechTalk', 'price' => 30],
     ['name' => 'TechTalk feedback from Thibault', 'price' => 5],
-    ['name' => '30 minute nap on campus', 'price' => 15]
+    ['name' => '30 minute nap on campus', 'price' => 15],
+    ['name' => 'Sandwich Delivery', 'price' => 2.5]
 ];
 
 $totalValue = 0;

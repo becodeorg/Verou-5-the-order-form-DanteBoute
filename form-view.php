@@ -16,18 +16,17 @@
 <div class="container">
     <h1>Place your order</h1>
     <?php // Navigation for when you need it ?>
-    <?php /*
     <nav>
         <ul class="nav">
             <li class="nav-item">
-                <a class="nav-link active" href="?food=1">Order food</a>
+            <a class="nav-link active" href="?order=services">Order services</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="?food=0">Order drinks</a>
+            <a class="nav-link" href="?order=products">Order products</a>
             </li>
         </ul>
     </nav>
-    */ ?>
+
     <form method="POST">
         <div class="form-row">
             <div class="form-group col-md-6">
@@ -62,18 +61,30 @@
             </div>
         </fieldset>
 
-        <fieldset>
-            <legend>Products</legend>
-            <?php foreach ($products as $i => $product): ?>
-                <label>
-					<?php // <?= is equal to <?php echo ?>
-                    <input type="checkbox" value="1" name="products[<?php echo $i ?>]"/> <?php echo $product['name'] ?> -
-                    &euro; <?= number_format($product['price'], 2) ?></label><br />
-            <?php endforeach; ?>
-        </fieldset>
+    <?php if (isset($_GET['order']) && $_GET['order'] === 'products'): ?>
+    <!-- Show product-related fields -->
+    <fieldset>
+        <legend>Products</legend>
+        <?php foreach ($products as $i => $product): ?>
+            <label>
+                <input type="checkbox" value="1" name="products[<?php echo $i ?>]"/> <?php echo $product['name'] ?> -
+                &euro; <?= number_format($product['price'], 2) ?></label><br />
+        <?php endforeach; ?>
+    </fieldset>
+<?php elseif (isset($_GET['order']) && $_GET['order'] === 'services'): ?>
+    <!-- Show service-related fields -->
+    <fieldset>
+        <legend>Services</legend>
+        <?php foreach ($services as $i => $service): ?>
+            <label>
+                <input type="checkbox" value="1" name="services[<?php echo $i ?>]"/> <?php echo $service['name'] ?> -
+                &euro; <?= number_format($service['price'], 2) ?></label><br />
+        <?php endforeach; ?>
+    </fieldset>
+<?php endif; ?>
 
-        <button type="submit" class="btn btn-primary">Order!</button>
-    </form>
+    <button type="submit" class="btn btn-primary">Order!</button>
+</form>
     <?php
 // Display order details only if the form has been submitted
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
